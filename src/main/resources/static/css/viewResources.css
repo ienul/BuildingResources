@@ -1,0 +1,50 @@
+
+.buildingPagination .leftSide{
+    float:left;
+}
+
+.buildingPagination .rightSide{
+    float:right;
+}
+.buildingPagination{
+
+    margin-bottom: 50px;
+
+}
+
+.roomPagination .leftSide{
+    float:left;
+}
+
+.roomPagination .rightSide{
+    float:right;
+}
+.roomPagination{
+
+    margin-bottom: 50px;
+
+}
+
+.doorPagination .leftSide{
+    float:left;
+}
+
+.doorPagination .rightSide{
+    float:right;
+}
+.doorPagination{
+
+    margin-bottom: 50px;
+
+}
+
+.center{
+    text-align: center;
+}
+
+.actions span{
+    text-decoration: underline;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}

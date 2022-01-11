@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org>">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/viewResources.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Resources Viewer</h1>
+    <h2>Building Resources</h2>
+    <p>The .table-hover class adds a hover effect (grey background color) on table rows:</p>
+    <table class="table table-dark table-hover" id="buildingsTable">
+        <thead>
+        <tr>
+            <th>Building ID</th>
+            <th>Building Name</th>
+            <th>Description</th>
+            <th>Number of floors</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="building : ${buildings}">
+            <td th:text="${building.buildingId}"></td>
+            <td th:text="${building.name}"></td>
+            <td th:text="${building.description}"></td>
+            <td th:text="${building.floorNumber}"></td>
+            <td class="actions">
+                <form th:action="@{/buildings/{id}(id=${building.buildingId})}" method="get">
+                    <button>Edit</button>
+                </form>
+                <form th:action="@{/buildings/{id}/delete(id=${building.buildingId})}" method="post">
+                    <button>Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="buildingPagination">
+        <div class="center">
+            <div class="leftSide">
+                <a th:href="@{/viewResources?buildingsPage={id}(id=${pagination.buildingsPage-1})}" th:if="${pagination.buildingsPage>1}">Previous</a>
+            </div>
+            <a th:href="@{/viewResources?buildingsPage={id}(id=${pagination.buildingsPage-1})}" th:if="${pagination.buildingsPage>1}" th:text="${'Page ' + (pagination.buildingsPage-1)}"></a>
+            <a th:text="${'Page ' + pagination.buildingsPage}"></a>
+            <a th:href="@{/viewResources?buildingsPage={id}(id=${pagination.buildingsPage+1})}" th:text="${'Page ' + (pagination.buildingsPage+1)}" th:if="${buildings.size>0}"></a>
+            <div class="rightSide">
+                <a th:href="@{/viewResources?buildingsPage={id}(id=${pagination.buildingsPage+1})}" th:if="${buildings.size>0}">Next</a>
+            </div>
+        </div>
+    </div>
+
+
+    <h2>Room Resources</h2>
+    <p>The .table-hover class adds a hover effect (grey background color) on table rows:</p>
+    <table class="table table-dark table-hover" id="roomsTable">
+        <thead>
+        <tr>
+            <th>Room ID</th>
+            <th>Building ID</th>
+            <th>Room Name</th>
+            <th>Surface in square meters</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="room : ${rooms}">
+            <td th:text="${room.roomId}"></td>
+            <td th:text="${room.buildingId}"></td>
+            <td th:text="${room.name}"></td>
+            <td th:text="${room.squareMeters}"></td>
+            <td class="actions">
+                <form th:action="@{/rooms/{id}(id=${room.roomId})}" method="get">
+                    <button>Edit</button>
+                </form>
+                <form th:action="@{/rooms/{id}/delete(id=${room.roomId})}" method="post">
+                    <button>Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="roomPagination">
+        <div class="center">
+            <div class="leftSide">
+                <a th:href="@{/viewResources?roomsPage={id}(id=${pagination.roomsPage-1})}" th:if="${pagination.roomsPage>1}">Previous</a>
+            </div>
+            <a th:href="@{/viewResources?roomsPage={id}(id=${pagination.roomsPage-1})}" th:if="${pagination.roomsPage>1}" th:text="${'Page ' + (pagination.roomsPage-1)}"></a>
+            <a th:text="${'Page ' + pagination.roomsPage}"></a>
+            <a th:href="@{/viewResources?roomsPage={id}(id=${pagination.roomsPage+1})}" th:text="${'Page ' + (pagination.roomsPage+1)}" th:if="${rooms.size>0}"></a>
+            <div class="rightSide">
+                <a th:href="@{/viewResources?roomsPage={id}(id=${pagination.roomsPage+1})}" th:if="${rooms.size>0}">Next</a>
+            </div>
+        </div>
+    </div>
+
+    </table>
+    <h2>Door Resources</h2>
+    <p>The .table-hover class adds a hover effect (grey background color) on table rows:</p>
+    <table class="table table-dark table-hover" id="doorsTable">
+        <thead>
+        <tr>
+            <th>Door ID</th>
+            <th>Room One ID</th>
+            <th>Room Two ID</th>
+            <th>Door Name</th>
+            <th>Door is Exterior</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="door : ${doors}">
+            <td th:text="${door.doorId}"></td>
+            <td th:text="${door.roomOneId}"></td>
+            <td th:text="${door.roomTwoId}"></td>
+            <td th:text="${door.name}"></td>
+            <td th:text="${door.exterior}"></td>
+            <td class="actions">
+                <form th:action="@{/doors/{id}(id=${door.doorId})}" method="get">
+                    <button>Edit</button>
+                </form>
+                <form th:action="@{/doors/{id}/delete(id=${door.doorId})}" method="post">
+                    <button>Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="doorPagination">
+        <div class="center">
+            <div class="leftSide">
+                <a th:href="@{/viewResources?doorsPage={id}(id=${pagination.doorsPage-1})}" th:if="${pagination.doorsPage>1}">Previous</a>
+            </div>
+            <a th:href="@{/viewResources?doorsPage={id}(id=${pagination.doorsPage-1})}" th:if="${pagination.doorsPage>1}" th:text="${'Page ' + (pagination.doorsPage-1)}"></a>
+            <a th:text="${'Page ' + pagination.doorsPage}"></a>
+            <a th:href="@{/viewResources?doorsPage={id}(id=${pagination.doorsPage+1})}" th:text="${'Page ' + (pagination.doorsPage+1)}" th:if="${doors.size>0}"></a>
+            <div class="rightSide">
+                <a th:href="@{/viewResources?doorsPage={id}(id=${pagination.doorsPage+1})}" th:if="${doors.size>0}">Next</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
